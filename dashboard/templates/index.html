@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Counterfactual Cyber Deception SOC Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <!-- Google Fonts & Chart.js -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="soc-body">
+    <!-- TOP HEADER -->
+    <header class="soc-header">
+        <div class="header-brand">
+            <div class="shield-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    <path d="M12 8v4"/>
+                    <path d="M12 16h.01"/>
+                </svg>
+            </div>
+            <div>
+                <h1>COUNTERFACTUAL CYBER DECEPTION FRAMEWORK</h1>
+                <p class="subtitle">AI-Driven Adaptive Defence & POMDP Decision Engine (Academic Capstone)</p>
+            </div>
+        </div>
+        <div class="header-status">
+            <div class="status-indicator live-pulse"></div>
+            <span class="status-text">DEFENCE SYSTEM ACTIVE</span>
+            <span class="system-time" id="clock-display">00:00:00 UTC</span>
+        </div>
+    </header>
+
+    <main class="dashboard-grid">
+        <!-- TOP SUMMARY CARDS -->
+        <section class="top-summary-row">
+            <div class="soc-card stat-card">
+                <div class="stat-label">SYSTEM STATUS</div>
+                <div class="stat-val status-green" id="stat-system-status">OPERATIONAL</div>
+                <div class="stat-sub">ML Multi-Class Classifier Ready</div>
+            </div>
+            <div class="soc-card stat-card">
+                <div class="stat-label">DETECTED ATTACK</div>
+                <div class="stat-val status-cyan" id="stat-detected-attack">DB_PROBE</div>
+                <div class="stat-sub" id="stat-detection-conf">Confidence: 94.2%</div>
+            </div>
+            <div class="soc-card stat-card">
+                <div class="stat-label">ATTACKER STATE</div>
+                <div class="stat-val status-amber" id="stat-attacker-state">S6 (Data Access)</div>
+                <div class="stat-sub" id="stat-progression">Progression: 85% | Soph: 0.72</div>
+            </div>
+            <div class="soc-card stat-card">
+                <div class="stat-label">DYNAMIC RISK SCORE</div>
+                <div class="stat-val status-crimson" id="stat-risk-score">82.4 / 100</div>
+                <div class="stat-sub" id="stat-risk-level">CRITICAL THREAT TIER</div>
+            </div>
+            <div class="soc-card stat-card highlight-card">
+                <div class="stat-label">OPTIMAL DEFENCE ACTION</div>
+                <div class="stat-val status-green" id="stat-recommended-defence">D4: Fake Database</div>
+                <div class="stat-sub" id="stat-expected-utility">Expected Utility: 91.8 / 100</div>
+            </div>
+        </section>
+
+        <!-- ATTACK CONTROLS & CAMPAIGN SELECTOR -->
+        <section class="soc-card control-panel-card">
+            <div class="card-header">
+                <h2>THREAT SIMULATION & DEFENCE WORKFLOW CONTROLS</h2>
+                <div class="button-group-inline">
+                    <button class="btn btn-secondary" id="btn-reset">Reset Simulation</button>
+                    <button class="btn btn-primary" id="btn-benchmark">Run 5-Paradigm Benchmark</button>
+                </div>
+            </div>
+            <div class="control-grid">
+                <div class="control-group">
+                    <label>Simulate Attack Presets:</label>
+                    <div class="button-group-wrap">
+                        <button class="btn btn-attack" data-attack="NORMAL">Normal Traffic</button>
+                        <button class="btn btn-attack" data-attack="RECONNAISSANCE">Reconnaissance</button>
+                        <button class="btn btn-attack" data-attack="BRUTE_FORCE">Brute Force</button>
+                        <button class="btn btn-attack" data-attack="CREDENTIAL_ATTACK">Credential Attack</button>
+                        <button class="btn btn-attack active" data-attack="DB_PROBE">DB Probe</button>
+                        <button class="btn btn-attack" data-attack="PRIVILEGE_ESCALATION">Privilege Escalation</button>
+                        <button class="btn btn-attack" data-attack="LATERAL_MOVEMENT">Lateral Movement</button>
+                        <button class="btn btn-attack" data-attack="DATA_ACCESS">Data Access</button>
+                        <button class="btn btn-attack" data-attack="EXFILTRATION">Exfiltration</button>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Sequential Pipeline Controls:</label>
+                    <div class="button-group-wrap">
+                        <button class="btn btn-action" id="btn-run-pipeline">⚡ Run Complete Pipeline</button>
+                        <button class="btn btn-action" id="btn-run-counterfactual">🔍 Evaluate Counterfactuals</button>
+                        <button class="btn btn-action btn-deploy" id="btn-deploy-defence">🛡️ Deploy Optimal Defence</button>
+                        <button class="btn btn-action btn-feedback" id="btn-attacker-response">🎯 Simulate Attacker Response</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MIDDLE TWO COLUMNS: TELEMETRY & DECISION RATIONALE -->
+        <div class="two-col-layout">
+            <!-- ATTACK MONITOR & TELEMETRY -->
+            <section class="soc-card telemetry-card">
+                <div class="card-header">
+                    <h2>ACTIVE ATTACK MONITOR & TELEMETRY</h2>
+                    <span class="badge" id="telemetry-session-id">SESS-INITIAL</span>
+                </div>
+                <div class="telemetry-grid">
+                    <div class="param-row">
+                        <span class="p-name">Source IP:</span>
+                        <span class="p-val" id="tel-source-ip">10.0.4.82</span>
+                    </div>
+                    <div class="param-row">
+                        <span class="p-name">Destination Target:</span>
+                        <span class="p-val" id="tel-dest-service">MySQL:3306</span>
+                    </div>
+                    <div class="param-row">
+                        <span class="p-name">Packets Per Second:</span>
+                        <span class="p-val" id="tel-packets-sec">68.4 pps</span>
+                    </div>
+                    <div class="param-row">
+                        <span class="p-name">Failed Logins:</span>
+                        <span class="p-val" id="tel-failed-logins">2</span>
+                    </div>
+                    <div class="param-row">
+                        <span class="p-name">Port Scans:</span>
+                        <span class="p-val" id="tel-port-scans">0</span>
+                    </div>
+                    <div class="param-row">
+                        <span class="p-name">Database Queries:</span>
+                        <span class="p-val highlight-amber" id="tel-db-queries">218 queries</span>
+                    </div>
+                    <div class="param-row">
+                        <span class="p-name">Sensitive File Probes:</span>
+                        <span class="p-val" id="tel-sensitive-files">11 files</span>
+                    </div>
+                    <div class="param-row">
+                        <span class="p-name">Privilege Escalation:</span>
+                        <span class="p-val" id="tel-priv-esc">0 attempts</span>
+                    </div>
+                    <div class="param-row">
+                        <span class="p-name">Lateral Movement Score:</span>
+                        <span class="p-val" id="tel-lateral-score">0.342</span>
+                    </div>
+                    <div class="param-row">
+                        <span class="p-name">Data Access Volume:</span>
+                        <span class="p-val" id="tel-data-volume">38.5 MB</span>
+                    </div>
+                    <div class="param-row">
+                        <span class="p-name">Asset Criticality:</span>
+                        <span class="p-val highlight-crimson" id="tel-asset-crit">0.88 / 1.0</span>
+                    </div>
+                    <div class="param-row">
+                        <span class="p-name">Attacker Dwell Time:</span>
+                        <span class="p-val highlight-green" id="tel-dwell-time">0.0 min</span>
+                    </div>
+                </div>
+
+                <div class="feature-importance-box">
+                    <h3>ML Detection Feature Attributions</h3>
+                    <div id="feature-bars-container"></div>
+                </div>
+            </section>
+
+            <!-- DECISION EXPLANATION & WHY PANEL -->
+            <section class="soc-card decision-explanation-card">
+                <div class="card-header">
+                    <h2>EXPLAINABLE AI: POMDP DECISION RATIONALE</h2>
+                    <span class="badge badge-success" id="badge-selected-action">D4 SELECTED</span>
+                </div>
+                
+                <div class="why-container">
+                    <div class="why-header">
+                        <span class="why-title">RECOMMENDED ACTION:</span>
+                        <span class="why-name" id="decision-rec-name">Fake Database</span>
+                    </div>
+                    <div class="utility-badge-row">
+                        <div class="u-tag">Expected Utility: <strong id="rec-utility-val">91.8</strong></div>
+                        <div class="u-tag">Delta vs Baseline (No Deception): <strong class="text-green" id="rec-delta-val">+58.4</strong></div>
+                        <div class="u-tag">Adversary Delay: <strong id="rec-delay-val">24.5 min</strong></div>
+                    </div>
+
+                    <h3 class="mt-3">WHY WAS THIS DEFENCE SELECTED?</h3>
+                    <ul class="why-list" id="why-reasons-list">
+                        <li>Diverts incoming SQL injection and probing queries away from genuine production MySQL clusters.</li>
+                        <li>Generates highest expected adversary dwell time (24.5 minutes) among all evaluated options.</li>
+                        <li>Maintains high deception engagement (92% probability) based on attacker state S6.</li>
+                        <li>Drastically minimizes critical asset exposure risk from 85% down to 4.2%.</li>
+                    </ul>
+
+                    <h3 class="mt-3">DECISION PIPELINE EXECUTION STEPS</h3>
+                    <div class="steps-timeline" id="pipeline-steps-list">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- COUNTERFACTUAL ANALYSIS MATRIX & CARDS -->
+        <section class="soc-card cf-matrix-card">
+            <div class="card-header">
+                <h2>COUNTERFACTUAL DEFENCE EVALUATION MATRIX (WHAT-IF REASONING)</h2>
+                <span class="badge badge-info">7 HYPOTHETICAL SCENARIOS EVALUATED</span>
+            </div>
+            <p class="cf-description">
+                The framework evaluates alternative defensive actions simultaneously:
+                <em>“What would happen if the defender deployed strategy D<sub>i</sub> instead of baseline?”</em>
+            </p>
+
+            <div class="table-responsive">
+                <table class="soc-table" id="cf-scenarios-table">
+                    <thead>
+                        <tr>
+                            <th>Strategy</th>
+                            <th>Category</th>
+                            <th>Detection</th>
+                            <th>Expected Delay</th>
+                            <th>Engagement</th>
+                            <th>Asset Exposure</th>
+                            <th>Intelligence</th>
+                            <th>Cost</th>
+                            <th>Risk</th>
+                            <th>Overall Utility</th>
+                            <th>Decision</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cf-table-body">
+                        <!-- Populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- CARDS GRID FOR QUICK COMPARISON -->
+            <div class="cf-cards-grid" id="cf-cards-container">
+                <!-- Dynamically populated -->
+            </div>
+        </section>
+
+        <!-- CHARTS SECTION -->
+        <section class="charts-section">
+            <div class="chart-box soc-card">
+                <h3>1. Counterfactual Utility Comparison (D1 - D7)</h3>
+                <canvas id="chart-utility-comparison"></canvas>
+            </div>
+            <div class="chart-box soc-card">
+                <h3>2. Attacker Belief State Probability (S0 - S7)</h3>
+                <canvas id="chart-state-prob"></canvas>
+            </div>
+            <div class="chart-box soc-card">
+                <h3>3. Expected Delay vs Detection Probability</h3>
+                <canvas id="chart-delay-detection"></canvas>
+            </div>
+            <div class="chart-box soc-card">
+                <h3>4. Multi-Objective Defence Effectiveness</h3>
+                <canvas id="chart-radar-defence"></canvas>
+            </div>
+            <div class="chart-box soc-card">
+                <h3>5. Dynamic Risk Score Evolution</h3>
+                <canvas id="chart-risk-trend"></canvas>
+            </div>
+            <div class="chart-box soc-card">
+                <h3>6. 5-Paradigm Framework Benchmark</h3>
+                <canvas id="chart-benchmark"></canvas>
+            </div>
+        </section>
+
+        <!-- LIVE EVENT LOG / TIMELINE -->
+        <section class="soc-card timeline-card">
+            <div class="card-header">
+                <h2>REAL-TIME SOC DEFENCE EVENT STREAM</h2>
+                <button class="btn btn-small" id="btn-clear-log">Clear Stream</button>
+            </div>
+            <div class="event-stream" id="event-stream-container">
+                <!-- Log entries added dynamically -->
+            </div>
+        </section>
+
+        <!-- EXPERIMENTAL BENCHMARK MODAL / DRAWER -->
+        <section class="soc-card benchmark-results-card" id="benchmark-card" style="display: none;">
+            <div class="card-header">
+                <h2>EXPERIMENTAL COMPARISON OF DEFENSIVE PARADIGMS (N=60 CAMPAIGNS)</h2>
+                <button class="btn btn-small" onclick="document.getElementById('benchmark-card').style.display='none'">Close</button>
+            </div>
+            <p class="cf-description">
+                Empirical evaluation comparing No Deception, Static Decoys, Rule-Based Heuristics, Standard AI, and Counterfactual AI.
+            </p>
+            <div class="table-responsive">
+                <table class="soc-table" id="benchmark-table">
+                    <thead>
+                        <tr>
+                            <th>Paradigm</th>
+                            <th>Detection Rate</th>
+                            <th>Attack Delay</th>
+                            <th>Dwell Time</th>
+                            <th>Asset Protection</th>
+                            <th>Intelligence Gain</th>
+                            <th>False Positive Rate</th>
+                            <th>Cost</th>
+                            <th>Overall Utility</th>
+                        </tr>
+                    </thead>
+                    <tbody id="benchmark-table-body">
+                        <!-- Populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer class="soc-footer">
+        <p>AI-Based Counterfactual Defence Decision Framework for Adaptive Cyber Deception &copy; 2026</p>
+        <p class="text-muted">Pure defensive cybersecurity simulation environment. Safe for academic research and demonstration.</p>
+    </footer>
+
+    <script src="/static/dashboard.js"></script>
+</body>
+</html>

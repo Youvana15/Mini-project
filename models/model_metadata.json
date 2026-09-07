@@ -1,0 +1,57 @@
+{
+    "best_model": "RandomForest",
+    "evaluation_metrics": {
+        "RandomForest": {
+            "accuracy": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1_score": 1.0,
+            "roc_auc": 1.0
+        },
+        "LogisticRegression": {
+            "accuracy": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1_score": 1.0,
+            "roc_auc": 1.0
+        },
+        "SVM": {
+            "accuracy": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1_score": 1.0,
+            "roc_auc": 1.0
+        }
+    },
+    "feature_importances": {
+        "connection_count": 0.1883,
+        "login_frequency": 0.1197,
+        "port_scan_count": 0.1113,
+        "sensitive_file_access": 0.1054,
+        "database_query_count": 0.1046,
+        "failed_login_count": 0.0958,
+        "data_access_volume": 0.0648,
+        "successful_login_count": 0.0511,
+        "asset_criticality": 0.0393,
+        "packets_per_second": 0.029,
+        "privilege_escalation_attempt": 0.0277,
+        "command_frequency": 0.024,
+        "lateral_movement_score": 0.0227,
+        "session_duration": 0.0088,
+        "service_code": 0.0044,
+        "attacker_sophistication": 0.0031
+    },
+    "classes": [
+        "NORMAL",
+        "RECONNAISSANCE",
+        "BRUTE_FORCE",
+        "CREDENTIAL_ATTACK",
+        "DB_PROBE",
+        "PRIVILEGE_ESCALATION",
+        "LATERAL_MOVEMENT",
+        "DATA_ACCESS",
+        "EXFILTRATION"
+    ],
+    "test_sample_count": 1200,
+    "train_sample_count": 4800
+}
